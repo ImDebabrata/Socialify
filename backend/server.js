@@ -3,7 +3,9 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 require("dotenv").config();
 const connection = require("./config/db");
-
+// importing Routes
+const userRoute = require("./routes/User.route");
+// Getting port from dotenv file
 const port = process.env.PORT || 8080;
 
 const app = express();
@@ -19,6 +21,10 @@ app.get("/", (req, res) => {
   res.status(200).send({ message: "welcome to trendy Socialify API" });
 });
 
+//Using Route
+app.use("/users", userRoute);
+
+//Connecting to Database
 app.listen(port, async () => {
   try {
     await connection;
