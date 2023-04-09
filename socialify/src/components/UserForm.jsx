@@ -7,6 +7,7 @@ import {
   VStack,
   useToast,
   Box,
+  Heading,
 } from "@chakra-ui/react";
 
 const UserForm = ({ onSubmit, user }) => {
@@ -17,8 +18,9 @@ const UserForm = ({ onSubmit, user }) => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    onSubmit({ name, email })
+    onSubmit({ name, email, bio })
       .then((res) => {
+        console.log("res:", res);
         toast({
           title: res.data.res,
           status: "success",
@@ -38,12 +40,7 @@ const UserForm = ({ onSubmit, user }) => {
   };
 
   return (
-    <Box
-      w={{ base: "100%", md: "450px" }}
-      mx={"auto"}
-      boxShadow={"lg"}
-      p={"15px"}
-    >
+    <Box>
       <form onSubmit={handleSubmit}>
         <VStack spacing={4}>
           <FormControl id="name" isRequired>
@@ -55,15 +52,17 @@ const UserForm = ({ onSubmit, user }) => {
               onChange={(event) => setName(event.target.value)}
             />
           </FormControl>
-          <FormControl id="email" isRequired>
-            <FormLabel>Email address</FormLabel>
-            <Input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(event) => setEmail(event.target.value)}
-            />
-          </FormControl>
+          {!user && (
+            <FormControl id="email" isRequired>
+              <FormLabel>Email address</FormLabel>
+              <Input
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+              />
+            </FormControl>
+          )}
           <FormControl id="bio">
             <FormLabel>Enter Bio</FormLabel>
             <Input
@@ -73,7 +72,7 @@ const UserForm = ({ onSubmit, user }) => {
               onChange={(event) => setBio(event.target.value)}
             />
           </FormControl>
-          <Button colorScheme="blue" type="submit">
+          <Button w={"100%"} colorScheme="blue" type="submit">
             {user ? "Update" : "Create"}
           </Button>
         </VStack>
