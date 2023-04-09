@@ -2,7 +2,7 @@ import { Box, Text, Button, useToast } from "@chakra-ui/react";
 import axios from "axios";
 import baseApi from "../baseApi";
 
-function AlertBox({ onDelete }) {
+function AlertBox({ onDelete, setUsers, users, id }) {
   const toast = useToast();
   const handleDelete = () => {
     onDelete()
@@ -13,6 +13,10 @@ function AlertBox({ onDelete }) {
           duration: 3000,
           isClosable: true,
         });
+      })
+      .then(() => {
+        const allUserAfterDelete = users.filter((user) => user._id !== id);
+        setUsers(allUserAfterDelete);
       })
       .catch((error) =>
         toast({

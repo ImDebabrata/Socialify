@@ -10,7 +10,7 @@ import {
   Heading,
 } from "@chakra-ui/react";
 
-const UserForm = ({ onSubmit, user }) => {
+const UserForm = ({ onSubmit, user, setUsers, users }) => {
   const [name, setName] = useState(user?.name || "");
   const [email, setEmail] = useState(user?.email || "");
   const [bio, setBio] = useState(user?.bio || "");
@@ -27,6 +27,18 @@ const UserForm = ({ onSubmit, user }) => {
           duration: 3000,
           isClosable: true,
         });
+
+        //if user already exists
+        if (user) {
+          const updatedUser = users.find((_user) => _user._id === user._id);
+          const updatedUserIndex = users.indexOf(updatedUser);
+          updatedUser.name = name;
+          updatedUser.bio = bio;
+          users.splice(updatedUserIndex, 1, updatedUser);
+          //creating new array for dom updating
+          const newArr = [...users];
+          setUsers(newArr);
+        }
       })
       .catch((error) => {
         toast({

@@ -33,7 +33,14 @@ const AllUsers = () => {
           </Thead>
           <Tbody>
             {users.map((user) => {
-              return <UserList key={user._id} {...user} />;
+              return (
+                <UserList
+                  key={user._id}
+                  {...user}
+                  users={users}
+                  setUsers={setUsers}
+                />
+              );
             })}
           </Tbody>
         </Table>

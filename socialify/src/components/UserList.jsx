@@ -8,7 +8,16 @@ import { Tr, Td, Button } from "@chakra-ui/react";
 import axios from "axios";
 import baseApi from "../baseApi";
 
-const UserList = ({ email, name, bio, _id, created_at, updated_at }) => {
+const UserList = ({
+  email,
+  name,
+  bio,
+  _id,
+  created_at,
+  updated_at,
+  users,
+  setUsers,
+}) => {
   const userData = { email, name, bio, _id, created_at, updated_at };
   const [isOpen, setIsOpen] = useState(false);
   const [modalType, setModalType] = useState(null);
@@ -53,9 +62,19 @@ const UserList = ({ email, name, bio, _id, created_at, updated_at }) => {
             }
           >
             {modalType === "update" ? (
-              <UserForm user={{ email, name, bio, _id }} onSubmit={onUpdate} />
+              <UserForm
+                user={{ email, name, bio, _id }}
+                onSubmit={onUpdate}
+                setUsers={setUsers}
+                users={users}
+              />
             ) : modalType === "delete" ? (
-              <AlertBox id={_id} onDelete={onDelete} />
+              <AlertBox
+                id={_id}
+                onDelete={onDelete}
+                users={users}
+                setUsers={setUsers}
+              />
             ) : (
               <UserInfo {...userData} />
             )}
