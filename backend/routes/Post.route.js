@@ -1,5 +1,6 @@
 const express = require("express");
 const {
+  allPosts,
   newPost,
   retrivePost,
   updatePostById,
@@ -13,9 +14,7 @@ const {
 } = require("../middleware/postCredentials");
 const postRoute = express.Router();
 
-postRoute.get("/", (req, res) => {
-  res.send({ res: "This is Post route" });
-});
+postRoute.get("/", allPosts);
 //create new post
 postRoute.post("/", postCredentials, newPost);
 //Retrive a post by id;

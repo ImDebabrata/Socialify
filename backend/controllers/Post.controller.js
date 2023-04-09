@@ -1,6 +1,16 @@
 const User = require("../models/User.model");
 const Post = require("../models/Post.modal");
 
+//Get all posts
+const allPosts = async (req, res) => {
+  try {
+    const posts = await Post.find();
+    res.send({ res: "All posts", posts });
+  } catch (error) {
+    res.send({ res: "Something went wrong", error: error.message });
+  }
+};
+
 //Creating a new post
 const newPost = async (req, res) => {
   const { user_id, content } = req.body;
@@ -122,6 +132,7 @@ const unlikePostById = async (req, res) => {
 };
 
 module.exports = {
+  allPosts,
   newPost,
   retrivePost,
   updatePostById,

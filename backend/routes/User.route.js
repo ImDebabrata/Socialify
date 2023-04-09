@@ -3,6 +3,7 @@ const userRoute = express.Router();
 
 //Import from controllers
 const {
+  allUsers,
   registerUser,
   retriveUser,
   updateUserById,
@@ -17,9 +18,7 @@ const {
 
 //All routes
 
-userRoute.get("/", (req, res) => {
-  res.send({ res: "This is user route" });
-});
+userRoute.get("/", allUsers);
 
 // Create a new user
 userRoute.post("/", checkCredentials, registerUser);

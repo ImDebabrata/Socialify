@@ -1,4 +1,14 @@
 const User = require("../models/User.model");
+
+//Get all users
+const allUsers = async (req, res) => {
+  try {
+    const users = await User.find();
+    res.send({ res: "All users", users });
+  } catch (error) {
+    res.send({ res: "Something went wrong", error: error.message });
+  }
+};
 //Register new user
 const registerUser = async (req, res) => {
   //check user present;
@@ -66,4 +76,10 @@ const deleteUserById = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, retriveUser, updateUserById, deleteUserById };
+module.exports = {
+  allUsers,
+  registerUser,
+  retriveUser,
+  updateUserById,
+  deleteUserById,
+};
