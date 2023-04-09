@@ -86,4 +86,46 @@ const deletePostById = async (req, res) => {
   }
 };
 
-module.exports = { newPost, retrivePost, updatePostById, deletePostById };
+//Like post by id
+const likePostById = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (!post) {
+      return res.status(404).send({ res: "Post not found" });
+    }
+    post.likes++;
+    await post.save();
+    res.json({ res: "Liked Post Successfully", post });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send({ err: "Server Error", error: err });
+  }
+};
+
+//Unlike post by id
+const unlikePostById = async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (!post) {
+      return res.status(404).send({ res: "Post not found" });
+    }
+    if (post.likes >= 0) {
+      return res.status(500).send({ res: "Dislikes can't be negative" });
+    }
+    post.likes--;
+    await post.save();
+    res.json({ res: "Unlike Post Successfully", post });
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send({ err: "Server Error", error: err });
+  }
+};
+
+module.exports = {
+  newPost,
+  retrivePost,
+  updatePostById,
+  deletePostById,
+  likePostById,
+  unlikePostById,
+};

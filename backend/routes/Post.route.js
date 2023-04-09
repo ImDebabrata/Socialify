@@ -4,6 +4,8 @@ const {
   retrivePost,
   updatePostById,
   deletePostById,
+  likePostById,
+  unlikePostById,
 } = require("../controllers/Post.controller");
 const {
   postCredentials,
@@ -22,5 +24,9 @@ postRoute.get("/:id", postIdValidator, retrivePost);
 postRoute.put("/:id", postIdValidator, updatePostById);
 //Delete post by id;
 postRoute.delete("/:id", postIdValidator, deletePostById);
+//Like post by id
+postRoute.post("/:id/like", postIdValidator, likePostById);
+//unlike post by id
+postRoute.post("/:id/unlike", postIdValidator, unlikePostById);
 
 module.exports = postRoute;
