@@ -1,6 +1,11 @@
 const User = require("../models/User.model");
 //Register new user
 const registerUser = async (req, res) => {
+  //check user present;
+  const userPresent = await User({ email: req.body.email });
+  if (userPresent) {
+    return res.status(400).send({ res: `${req.body.email} already exist` });
+  }
   try {
     const user = new User(req.body);
     await user.save();
