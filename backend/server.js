@@ -6,6 +6,7 @@ const connection = require("./config/db");
 // importing Routes
 const userRoute = require("./routes/User.route");
 const postRoute = require("./routes/Post.route");
+const analyticsRoute = require("./routes/Analytics.route");
 // Getting port from dotenv file
 const port = process.env.PORT || 8080;
 
@@ -25,6 +26,7 @@ app.get("/", (req, res) => {
 //Using Route
 app.use("/users", userRoute);
 app.use("/posts", postRoute);
+app.use("/analytics", analyticsRoute);
 
 //Connecting to Database
 app.listen(port, async () => {
