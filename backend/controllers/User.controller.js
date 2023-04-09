@@ -10,4 +10,54 @@ const registerUser = async (req, res) => {
   }
 };
 
-module.exports = { registerUser };
+//retrive user by id
+const retriveUser = async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    res.send({ res: user });
+  } catch (error) {
+    res.status(500).send({ res: "User not found", error: error.message });
+  }
+};
+
+//Update user by id
+const updateUserById = async (req, res) => {
+  const updates = Object.keys(req.body);
+  const allowedUpdates = ["name", "bio"];
+  const isValidOperation = updates.every((update) =>
+    allowedUpdates.includes(update)
+  );
+  if (!isValidOperation) {
+    return res.status(400).send({ res: "Invalid updates!" });
+  }
+
+  //Updated Time;
+  req.body.updated_at = Date.now();
+
+  try {
+    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
+    if (!user) {
+      return res.status(404).send({ res: "No user found" });
+    }
+    res.send(user);
+  } catch (error) {
+    res.status(400).send({ res: "Something went wrong", error: error.message });
+  }
+};
+
+//Delete user by id;
+const deleteUserById = async (req, res) => {
+  try {
+    const user = await User.findByIdAndDelete(req.params.id);
+    if (!user) {
+      return res.status(404).send({ res: "User not found" });
+    }
+    res.send({ res: "Deleted user successfully", user });
+  } catch (error) {
+    res.status(500).send({ res: "Something went wrong", error: error.message });
+  }
+};
+
+module.exports = { registerUser, retriveUser, updateUserById, deleteUserById };

@@ -1,3 +1,5 @@
+const mongoose = require("mongoose");
+
 const checkCredentials = (req, res, next) => {
   const { email, name, bio } = req.body;
   if (!email || !name) {
@@ -11,6 +13,14 @@ const checkCredentials = (req, res, next) => {
   next();
 };
 
+const userIdValidator = (req, res, next) => {
+  if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+    return res.status(400).json({ res: "Invalid user id" });
+  }
+  next();
+};
+
 module.exports = {
   checkCredentials,
+  userIdValidator,
 };
