@@ -57,7 +57,7 @@ const updateUserById = async (req, res) => {
     if (!user) {
       return res.status(404).send({ res: "No user found" });
     }
-    res.send(user);
+    res.send({ res: "Updated User successfully", user });
   } catch (error) {
     res.status(400).send({ res: "Something went wrong", error: error.message });
   }
