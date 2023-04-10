@@ -36,6 +36,33 @@ const PostList = ({ post, allPosts, updatePosts }) => {
   function onUpdate({ content }) {
     return axios.put(`${baseApi()}/posts/${_id}`, { content });
   }
+
+  //Like Unlike
+  function handleLike() {
+    axios.post(`${baseApi()}/posts/${_id}/like`).then((res) => {
+      const updatedPost = allPosts.find((_post) => _post._id === _id);
+      const updatedPostIndex = allPosts.indexOf(updatedPost);
+      updatedPost.likes = updatedPost.likes + 1;
+      allPosts.splice(updatedPostIndex, 1, updatedPost);
+      //creating new array for dom updating
+      const newArr = [...allPosts];
+      updatePosts(newArr);
+    });
+  }
+  function handleDislike() {
+    axios.post(`${baseApi()}/posts/${_id}/unlike`).then((res) => {
+      const updatedPost = allPosts.find((_post) => _post._id === _id);
+      const updatedPostIndex = allPosts.indexOf(updatedPost);
+      if (updatePosts.likes <= 0) {
+        return alert("Dislikes can't be negative");
+      }
+      updatedPost.likes = updatedPost.likes - 1;
+      allPosts.splice(updatedPostIndex, 1, updatedPost);
+      //creating new array for dom updating
+      const newArr = [...allPosts];
+      updatePosts(newArr);
+    });
+  }
   return (
     <>
       <PopupModal
@@ -93,20 +120,10 @@ const PostList = ({ post, allPosts, updatePosts }) => {
             >
               Update
             </Button>
-            <Button
-              colorScheme="teal"
-              size="sm"
-              mr="2"
-              //   onClick={() => onLike(post)}
-            >
+            <Button colorScheme="teal" size="sm" mr="2" onClick={handleLike}>
               Like ({likes})
             </Button>
-            <Button
-              colorScheme="red"
-              size="sm"
-              mr="2"
-              //   onClick={() => onUnlike(post)}
-            >
+            <Button colorScheme="red" size="sm" mr="2" onClick={handleDislike}>
               Unlike
             </Button>
           </Box>

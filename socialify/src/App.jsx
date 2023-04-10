@@ -9,8 +9,8 @@ function App() {
     <div className="App">
       {/* <Home /> */}
       {/* <AllUsers /> */}
-      {/* <AllPosts /> */}
-      <CreatePost />
+      <AllPosts />
+      {/* <CreatePost /> */}
     </div>
   );
 }
