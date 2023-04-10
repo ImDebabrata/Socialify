@@ -9,12 +9,12 @@ import UserAnalytics from "./pages/UserAnalytics";
 function App() {
   return (
     <div className="App">
-      {/* <Home /> */}
+      <Home />
       {/* <AllUsers /> */}
       {/* <AllPosts /> */}
       {/* <CreatePost /> */}
       {/* <UserAnalytics /> */}
-      <PostAnalytics />
+      {/* <PostAnalytics /> */}
     </div>
   );
 }

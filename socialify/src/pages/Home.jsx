@@ -2,10 +2,11 @@ import React from "react";
 import UserForm from "../components/UserForm";
 import axios from "axios";
 import { Box, Heading } from "@chakra-ui/react";
+import baseApi from "../baseApi";
 
 const Home = () => {
   const onSubmit = (payload) => {
-    return axios.post(`http://localhost:8080/users`, payload);
+    return axios.post(`${baseApi()}/users`, payload);
   };
   return (
     <Box
