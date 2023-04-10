@@ -119,7 +119,7 @@ const unlikePostById = async (req, res) => {
     if (!post) {
       return res.status(404).send({ res: "Post not found" });
     }
-    if (post.likes >= 0) {
+    if (post.likes <= 0) {
       return res.status(500).send({ res: "Dislikes can't be negative" });
     }
     post.likes--;
