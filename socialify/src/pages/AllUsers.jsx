@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Box, Heading, Table, Thead, Tr, Th, Tbody } from "@chakra-ui/react";
 import axios from "axios";
 import UserList from "../components/UserList";
+import baseApi from "../baseApi";
 
 const AllUsers = () => {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(false);
   useEffect(() => {
     axios
-      .get("http://localhost:8080/users")
+      .get(`${baseApi()}/users`)
       .then((res) => setUsers(res.data.users))
       .catch((err) => {
         console.log("err:", err);
