@@ -8,7 +8,7 @@ const userRoute = require("./routes/User.route");
 const postRoute = require("./routes/Post.route");
 const analyticsRoute = require("./routes/Analytics.route");
 // Getting port from dotenv file
-const port = process.env.PORT || 8080;
+const port = process.env.PORT;
 
 const app = express();
 app.use(
